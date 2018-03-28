@@ -17,9 +17,6 @@ CXXFLAGS += -g
 CXXFLAGS += $(DEPFLAGS)
 LDFLAGS =   -g -L.
 
-SRC   = "src/"
-BUILD = "build/"
-
 # Targets
 PROGS = server_mem server_disk client
 
