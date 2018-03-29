@@ -15,27 +15,31 @@ CXXFLAGS =  -O2 -Wall -Wextra -pedantic-errors -Wold-style-cast
 CXXFLAGS += -std=c++11 
 CXXFLAGS += -g
 CXXFLAGS += $(DEPFLAGS)
-LDFLAGS =   -g -L.
+LDFLAGS =   -g 
+#CPPFLAGS += -stdlib=libc++
+#CXXFLAGS += -stdlib=libc++
+#LDFLAGS +=  -stdlib=libc++
 
 # Targets
-PROGS = server_mem server_disk client
 
-all: $(PROGS)
+all: libclientserver.a
 
-# Targets rely on implicit rules for compiling and linking
-server_mem: server_mem.o
-server_disk: server_disk.o
-client: client.o
+# Create the library; ranlib is for Darwin (OS X) and maybe other systems.
+# Doesn't seem to do any damage on other systems.
+
+libclientserver.a: connection.o server.o
+	ar rv libclientserver.a  connection.o server.o
+	ranlib libclientserver.a
 
 # Phony targets
-.PHONY: all test clean distclean
+.PHONY: all clean distclean
 
 # Standard clean
 clean:
-	rm -f *.o *.a $(PROGS)
+	rm -f *.o 
 
 distclean: clean
-	rm *.d
+	-rm *.d libclientserver.a
 
 
 # Include the *.d files
