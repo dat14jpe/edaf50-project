@@ -8,4 +8,5 @@ struct Article {
     std::string author;
     std::string text;
 };
+
 #endif

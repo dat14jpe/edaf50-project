@@ -1,5 +1,0 @@
-
-
-class PrimaryMemoryDatabase: public Database {
-
-}

@@ -7,4 +7,5 @@ struct NewsGroup {
     unsigned int id;
     std::string name;
 };
+
 #endif
