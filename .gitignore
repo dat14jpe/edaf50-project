@@ -33,3 +33,8 @@
 server_mem
 server_disk
 client
+
+# Vim swap files
+*~
+*.swp
+*.swo
