@@ -1,0 +1,5 @@
+
+/* Database Interface */
+class Database {
+  
+}

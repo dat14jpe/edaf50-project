@@ -1,0 +1,4 @@
+
+class OnDiskDatabase : public Database {
+
+}
