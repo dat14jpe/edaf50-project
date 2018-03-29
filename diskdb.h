@@ -4,12 +4,12 @@
 #include "database.h"
 
 class DiskDb : public Database {
-    const std::vector<std::string>& list() override;
-    bool create(NewsGroup ng) override;
+    const std::vector<Newsgroup>& list() override;
+    bool create(Newsgroup& ng) override;
     bool remove(unsigned int ngId) override;
     const std::vector<Article>& list(unsigned int ngId) override;
-    const std::string& read(unsigned int ngId, unsigned int aId) override;
-    bool write(const unsigned int ngId, const unsigned int aId, const std::string& text) override;
+    const std::string* read(unsigned int ngId, unsigned int aId) override;
+    bool write(const unsigned int ngId, Article& a) override;
     bool remove(const unsigned int ngId, const unsigned int aId) override;
 };
 
