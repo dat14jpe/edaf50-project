@@ -4,9 +4,9 @@
 #include <string>
 
 struct Article {
-    unsigned int id;
-    std::string author;
-    std::string text;
+    typedef unsigned int Id;
+    Id id;
+    std::string title, author, text;
 };
 
 #endif

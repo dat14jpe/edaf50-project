@@ -2,14 +2,13 @@
 #define NEWS_H
 
 #include <string>
-#include <vector>
 #include "article.h"
 
 struct Newsgroup {
-    unsigned int id;
+    typedef unsigned int Id;
+    Id id;
     std::string name;
-    std::vector<Article> articles;
-    unsigned int maxId = 0u;
+    Article::Id maxId; // highest article ID used before
 };
 
 #endif
