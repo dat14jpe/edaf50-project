@@ -13,9 +13,10 @@ static void testCode(MessageHandler& mh, Protocol c) {
 }
 
 static string getLine() {
-    cin.ignore();
+    //cin.ignore(1, '\n');
     string s;
     getline(cin, s);
+    if (!s.size()) getline(cin, s); // for empty lines after other input
     return s;
 }
 
@@ -41,7 +42,6 @@ void listNewsgroupsCommand(MessageHandler& mh) {
 void createNewsgroupCommand(MessageHandler& mh) {
     string name;
     cout << "Enter newsgroup title: "; name = getLine();
-    cout << name << endl;
     
     mh.sendCode(Protocol::COM_CREATE_NG);
     mh.sendStringParameter(name);

@@ -8,7 +8,6 @@
 #include <stdexcept>
 #include <cstdlib>
 #include <map>
-#include <sstream>
 
 using namespace std;
 
@@ -52,9 +51,6 @@ int main(int argc, char* argv[]) {
 	string line;
 	while (cin.good()) { //getline(cin, line)) {
 		try {
-            /*stringstream ss{line};
-            string command;
-            ss >> command;*/
             string command;
             cin >> command;
             if ("help" == command) {
