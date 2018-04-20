@@ -12,7 +12,7 @@ static void testCode(MessageHandler& mh, Protocol c) {
     }
 }
 
-void listNewsgroupsCommand(MessageHandler& mh, stringstream&) {
+void listNewsgroupsCommand(MessageHandler& mh) {
     mh.sendCode(Protocol::COM_LIST_NG);
     mh.sendCode(Protocol::COM_END);
     
@@ -31,9 +31,9 @@ void listNewsgroupsCommand(MessageHandler& mh, stringstream&) {
     testCode(mh, Protocol::ANS_END);
 }
 
-void createNewsgroupCommand(MessageHandler& mh, stringstream& ss) {
+void createNewsgroupCommand(MessageHandler& mh) {
     string name;
-    ss >> name;
+    cout << "Enter newsgroup title: "; cin >> name;
     mh.sendCode(Protocol::COM_CREATE_NG);
     mh.sendStringParameter(name);
     mh.sendCode(Protocol::COM_END);
@@ -49,9 +49,9 @@ void createNewsgroupCommand(MessageHandler& mh, stringstream& ss) {
     testCode(mh, Protocol::ANS_END);
 }
 
-void deleteNewsgroupCommand(MessageHandler& mh, stringstream& ss) {
+void deleteNewsgroupCommand(MessageHandler& mh) {
     Newsgroup::Id ngId;
-    ss >> ngId;
+    cout << "Enter newsgroup ID: "; cin >> ngId;
     mh.sendCode(Protocol::COM_DELETE_NG);
     mh.sendIntParameter(ngId);
     mh.sendCode(Protocol::COM_END);
@@ -67,9 +67,9 @@ void deleteNewsgroupCommand(MessageHandler& mh, stringstream& ss) {
     testCode(mh, Protocol::ANS_END);
 }
 
-void listArticlesCommand(MessageHandler& mh, stringstream& ss) {
+void listArticlesCommand(MessageHandler& mh) {
     Newsgroup::Id ngId;
-    ss >> ngId;
+    cout << "Enter newsgroup ID: "; cin >> ngId;
     mh.sendCode(Protocol::COM_LIST_ART);
     mh.sendIntParameter(ngId);
     mh.sendCode(Protocol::COM_END);
@@ -95,10 +95,14 @@ void listArticlesCommand(MessageHandler& mh, stringstream& ss) {
     testCode(mh, Protocol::ANS_END);
 }
 
-void createArticleCommand(MessageHandler& mh, stringstream& ss) {
+void createArticleCommand(MessageHandler& mh) {
     Newsgroup::Id ngId;
     string title, author, text;
-    ss >> ngId >> title >> author >> text;
+    cout << "Enter newsgroup ID: "; cin >> ngId;
+    cout << "Enter article title: "; cin >> title;
+    cout << "Enter article author: "; cin >> author;
+    cout << "Enter article text: "; cin >> text;
+    
     mh.sendCode(Protocol::COM_CREATE_ART);
     mh.sendIntParameter(ngId);
     mh.sendStringParameter(title);
@@ -116,10 +120,12 @@ void createArticleCommand(MessageHandler& mh, stringstream& ss) {
     testCode(mh, Protocol::ANS_END);
 }
 
-void deleteArticleCommand(MessageHandler& mh, stringstream& ss) {
+void deleteArticleCommand(MessageHandler& mh) {
     Newsgroup::Id ngId;
     Article::Id aId;
-    ss >> ngId >> aId;
+    cout << "Enter newsgroup ID: "; cin >> ngId;
+    cout << "Enter article ID: "; cin >> aId;
+    
     mh.sendCode(Protocol::COM_DELETE_ART);
     mh.sendIntParameter(ngId);
     mh.sendIntParameter(aId);
@@ -140,10 +146,12 @@ void deleteArticleCommand(MessageHandler& mh, stringstream& ss) {
     testCode(mh, Protocol::ANS_END);
 }
 
-void getArticleCommand(MessageHandler& mh, stringstream& ss) {
+void getArticleCommand(MessageHandler& mh) {
     Newsgroup::Id ngId;
     Article::Id aId;
-    ss >> ngId >> aId;
+    cout << "Enter newsgroup ID: "; cin >> ngId;
+    cout << "Enter article ID: "; cin >> aId;
+    
     mh.sendCode(Protocol::COM_GET_ART);
     mh.sendIntParameter(ngId);
     mh.sendIntParameter(aId);

@@ -12,7 +12,7 @@
 
 using namespace std;
 
-void exitCommand(MessageHandler&, stringstream&) {
+void exitCommand(MessageHandler&) {
     exit(0);
 }
 
@@ -50,11 +50,13 @@ int main(int argc, char* argv[]) {
     
 	cout << "To list available commands, type help" << endl << "Type a command: ";
 	string line;
-	while (getline(cin, line)) {
+	while (cin.good()) { //getline(cin, line)) {
 		try {
-            stringstream ss{line};
+            /*stringstream ss{line};
             string command;
-            ss >> command;
+            ss >> command;*/
+            string command;
+            cin >> command;
             if ("help" == command) {
                 cout << "Available commands: " << endl;
                 for (auto& c : commands) {
@@ -63,7 +65,7 @@ int main(int argc, char* argv[]) {
             } else {
                 auto cs = commands.find(command);
                 if (commands.end() != cs) {
-                    cs->second.func(mh, ss);
+                    cs->second.func(mh);
                 } else {
                     cout << "Unrecognized command" << endl;
                 }

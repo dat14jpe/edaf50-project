@@ -1,19 +1,18 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
-#include <sstream>
 #include "messagehandler.h"
 
 // Client commands:
-typedef void (*CommandFunc)(MessageHandler&, std::stringstream&);
+typedef void (*CommandFunc)(MessageHandler&);
 
-void listNewsgroupsCommand  (MessageHandler&, std::stringstream&);
-void createNewsgroupCommand (MessageHandler&, std::stringstream&);
-void deleteNewsgroupCommand (MessageHandler&, std::stringstream&);
-void listArticlesCommand    (MessageHandler&, std::stringstream&);
-void createArticleCommand   (MessageHandler&, std::stringstream&);
-void deleteArticleCommand   (MessageHandler&, std::stringstream&);
-void getArticleCommand      (MessageHandler&, std::stringstream&);
+void listNewsgroupsCommand  (MessageHandler&);
+void createNewsgroupCommand (MessageHandler&);
+void deleteNewsgroupCommand (MessageHandler&);
+void listArticlesCommand    (MessageHandler&);
+void createArticleCommand   (MessageHandler&);
+void deleteArticleCommand   (MessageHandler&);
+void getArticleCommand      (MessageHandler&);
 
 struct Command {
     CommandFunc func;
