@@ -72,5 +72,6 @@ int main(int argc, char* argv[]) {
 		}
         cout << "Type a command: ";
 	}
+    cout << "So, here we are" << endl;
 }
 

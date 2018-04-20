@@ -20,6 +20,13 @@ static string getLine() {
     return s;
 }
 
+template <typename T>
+static void readId(T& id) {
+    cin >> id;
+    cin.clear(); // - to recover from bad user input
+}
+
+
 void listNewsgroupsCommand(MessageHandler& mh) {
     mh.sendCode(Protocol::COM_LIST_NG);
     mh.sendCode(Protocol::COM_END);
@@ -60,7 +67,7 @@ void createNewsgroupCommand(MessageHandler& mh) {
 
 void deleteNewsgroupCommand(MessageHandler& mh) {
     Newsgroup::Id ngId;
-    cout << "Enter newsgroup ID: "; cin >> ngId;
+    cout << "Enter newsgroup ID: "; readId(ngId);
     mh.sendCode(Protocol::COM_DELETE_NG);
     mh.sendIntParameter(ngId);
     mh.sendCode(Protocol::COM_END);
@@ -78,7 +85,7 @@ void deleteNewsgroupCommand(MessageHandler& mh) {
 
 void listArticlesCommand(MessageHandler& mh) {
     Newsgroup::Id ngId;
-    cout << "Enter newsgroup ID: "; cin >> ngId;
+    cout << "Enter newsgroup ID: "; readId(ngId);
     mh.sendCode(Protocol::COM_LIST_ART);
     mh.sendIntParameter(ngId);
     mh.sendCode(Protocol::COM_END);
@@ -107,7 +114,7 @@ void listArticlesCommand(MessageHandler& mh) {
 void createArticleCommand(MessageHandler& mh) {
     Newsgroup::Id ngId;
     string title, author, text;
-    cout << "Enter newsgroup ID: "; cin >> ngId;
+    cout << "Enter newsgroup ID: "; readId(ngId);
     cout << "Enter article title: "; title = getLine();
     cout << "Enter article author: "; author = getLine();
     cout << "Enter article text: "; text = getLine();
@@ -133,8 +140,8 @@ void createArticleCommand(MessageHandler& mh) {
 void deleteArticleCommand(MessageHandler& mh) {
     Newsgroup::Id ngId;
     Article::Id aId;
-    cout << "Enter newsgroup ID: "; cin >> ngId;
-    cout << "Enter article ID: "; cin >> aId;
+    cout << "Enter newsgroup ID: "; readId(ngId);
+    cout << "Enter article ID: "; readId(aId);
     
     mh.sendCode(Protocol::COM_DELETE_ART);
     mh.sendIntParameter(ngId);
@@ -159,8 +166,8 @@ void deleteArticleCommand(MessageHandler& mh) {
 void getArticleCommand(MessageHandler& mh) {
     Newsgroup::Id ngId;
     Article::Id aId;
-    cout << "Enter newsgroup ID: "; cin >> ngId;
-    cout << "Enter article ID: "; cin >> aId;
+    cout << "Enter newsgroup ID: "; readId(ngId);
+    cout << "Enter article ID: "; readId(aId);
     
     mh.sendCode(Protocol::COM_GET_ART);
     mh.sendIntParameter(ngId);
