@@ -108,6 +108,7 @@ void createArticleCommand(MessageHandler& mh) {
     mh.sendStringParameter(title);
     mh.sendStringParameter(author);
     mh.sendStringParameter(text);
+    mh.sendCode(Protocol::COM_END);
     
     testCode(mh, Protocol::ANS_CREATE_ART);
     auto code = static_cast<Protocol>(mh.recvByte());
@@ -164,7 +165,7 @@ void getArticleCommand(MessageHandler& mh) {
         title = mh.recvStringParameter();
         author = mh.recvStringParameter();
         text = mh.recvStringParameter();
-        cout << "Title: " << title << endl << "Author: " << author
+        cout << "Title: " << title << endl << "Author: " << author << endl
              << "Text: " << text << endl << endl;
     } else {
         code = static_cast<Protocol>(mh.recvByte());
