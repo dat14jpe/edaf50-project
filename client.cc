@@ -12,6 +12,13 @@ static void testCode(MessageHandler& mh, Protocol c) {
     }
 }
 
+static string getLine() {
+    cin.ignore();
+    string s;
+    getline(cin, s);
+    return s;
+}
+
 void listNewsgroupsCommand(MessageHandler& mh) {
     mh.sendCode(Protocol::COM_LIST_NG);
     mh.sendCode(Protocol::COM_END);
@@ -33,7 +40,9 @@ void listNewsgroupsCommand(MessageHandler& mh) {
 
 void createNewsgroupCommand(MessageHandler& mh) {
     string name;
-    cout << "Enter newsgroup title: "; cin >> name;
+    cout << "Enter newsgroup title: "; name = getLine();
+    cout << name << endl;
+    
     mh.sendCode(Protocol::COM_CREATE_NG);
     mh.sendStringParameter(name);
     mh.sendCode(Protocol::COM_END);
@@ -99,9 +108,9 @@ void createArticleCommand(MessageHandler& mh) {
     Newsgroup::Id ngId;
     string title, author, text;
     cout << "Enter newsgroup ID: "; cin >> ngId;
-    cout << "Enter article title: "; cin >> title;
-    cout << "Enter article author: "; cin >> author;
-    cout << "Enter article text: "; cin >> text;
+    cout << "Enter article title: "; title = getLine();
+    cout << "Enter article author: "; author = getLine();
+    cout << "Enter article text: "; text = getLine();
     
     mh.sendCode(Protocol::COM_CREATE_ART);
     mh.sendIntParameter(ngId);
