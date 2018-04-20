@@ -6,7 +6,7 @@ Directory::Directory(const string& path) : path(path) {}
 
 Directory::operator bool() const { // checks if the directory can be opened
     auto dir = opendir(path.c_str());
-    closedir(dir);
+    if (dir) closedir(dir);
     return dir;
 }
 bool Directory::make(const string& path) {
