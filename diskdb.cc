@@ -96,7 +96,9 @@ std::vector<Article> DiskDb::list(Newsgroup::Id ngId) {
 
 Article DiskDb::read(Newsgroup::Id ngId, Article::Id aId) {
     testNewsgroupExists(ngId);
-    return readArticle(ngId, aId);
+    auto a = readArticle(ngId, aId);
+    if (!a.id) throw ArticleNotFoundException();
+    return a;
 }
 
 void DiskDb::createArticle(Newsgroup::Id ngId, const Article& a) {
@@ -139,6 +141,7 @@ Newsgroup DiskDb::readNewsgroup(Newsgroup::Id id) {
 Article DiskDb::readArticle(Newsgroup::Id ngId, Article::Id aId) {
     auto f = FileReader{articleFileName(ngId, aId)};
     Article a{};
+    if (!f) return a;
     a.id = aId;
     a.title = f.readString();
     a.author = f.readString();
