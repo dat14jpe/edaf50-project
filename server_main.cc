@@ -14,13 +14,13 @@
 
 using namespace std;
 
-void ListNewsgroups(Database&, MessageHandler&);
-void CreateNewsgroup(Database&, MessageHandler&);
-void DeleteNewsgroup(Database&, MessageHandler&);
-void ListArticles(Database&, MessageHandler&);
-void CreateArticle(Database&, MessageHandler&);
-void DeleteArticle(Database&, MessageHandler&);
-void GetArticle(Database&, MessageHandler&);
+void listNewsgroups (Database&, MessageHandler&);
+void createNewsgroup(Database&, MessageHandler&);
+void deleteNewsgroup(Database&, MessageHandler&);
+void listArticles   (Database&, MessageHandler&);
+void createArticle  (Database&, MessageHandler&);
+void deleteArticle  (Database&, MessageHandler&);
+void getArticle     (Database&, MessageHandler&);
 
 
 int main(int argc, char* argv[]){
@@ -54,13 +54,13 @@ int main(int argc, char* argv[]){
                 auto code = m.recvCode();
                 //cout << "Received code " << (int)code << endl;
                 switch (code) {
-                    case Protocol::COM_LIST_NG   : ListNewsgroups (db, m); break;
-                    case Protocol::COM_CREATE_NG : CreateNewsgroup(db, m); break;
-                    case Protocol::COM_DELETE_NG : DeleteNewsgroup(db, m); break;
-                    case Protocol::COM_LIST_ART  : ListArticles   (db, m); break;
-                    case Protocol::COM_CREATE_ART: CreateArticle  (db, m); break;
-                    case Protocol::COM_DELETE_ART: DeleteArticle  (db, m); break;
-                    case Protocol::COM_GET_ART   : GetArticle     (db, m); break;
+                    case Protocol::COM_LIST_NG   : listNewsgroups (db, m); break;
+                    case Protocol::COM_CREATE_NG : createNewsgroup(db, m); break;
+                    case Protocol::COM_DELETE_NG : deleteNewsgroup(db, m); break;
+                    case Protocol::COM_LIST_ART  : listArticles   (db, m); break;
+                    case Protocol::COM_CREATE_ART: createArticle  (db, m); break;
+                    case Protocol::COM_DELETE_ART: deleteArticle  (db, m); break;
+                    case Protocol::COM_GET_ART   : getArticle     (db, m); break;
                     default: throw ConnectionClosedException(); // misbehaving client
                 }
                 m.sendCode(Protocol::ANS_END);
@@ -89,7 +89,7 @@ bool ackIf(bool cond, MessageHandler& m) {
     return cond;
 }
 
-void ListNewsgroups(Database& d, MessageHandler& m) {
+void listNewsgroups(Database& d, MessageHandler& m) {
     m.sendCode(Protocol::ANS_LIST_NG);
     auto ngs = d.list();
     m.sendIntParameter(ngs.size());
@@ -99,7 +99,7 @@ void ListNewsgroups(Database& d, MessageHandler& m) {
     }
 }
 
-void CreateNewsgroup(Database& d, MessageHandler& m) {
+void createNewsgroup(Database& d, MessageHandler& m) {
     auto title = m.recvStringParameter();
     m.sendCode(Protocol::ANS_CREATE_NG);
     Newsgroup ng;
@@ -109,7 +109,7 @@ void CreateNewsgroup(Database& d, MessageHandler& m) {
     }
 }
 
-void DeleteNewsgroup(Database& d, MessageHandler& m) {
+void deleteNewsgroup(Database& d, MessageHandler& m) {
     auto id = m.recvIntParameter();
     m.sendCode(Protocol::ANS_DELETE_NG);
     if (!ackIf(d.remove(id), m)) {
@@ -117,7 +117,7 @@ void DeleteNewsgroup(Database& d, MessageHandler& m) {
     }
 }
 
-void ListArticles(Database& d, MessageHandler& m) {
+void listArticles(Database& d, MessageHandler& m) {
     auto id = m.recvIntParameter();
     m.sendCode(Protocol::ANS_LIST_ART);
     try {
@@ -134,7 +134,7 @@ void ListArticles(Database& d, MessageHandler& m) {
     }
 }
 
-void CreateArticle(Database& d, MessageHandler& m) {
+void createArticle(Database& d, MessageHandler& m) {
     Article a{};
     auto id = m.recvIntParameter();
     a.title = m.recvStringParameter();
@@ -151,7 +151,7 @@ void CreateArticle(Database& d, MessageHandler& m) {
     }
 }
 
-void DeleteArticle(Database& d, MessageHandler& m) {
+void deleteArticle(Database& d, MessageHandler& m) {
     auto ngId = m.recvIntParameter();
     auto aId = m.recvIntParameter();
     
@@ -168,7 +168,7 @@ void DeleteArticle(Database& d, MessageHandler& m) {
     }
 }
 
-void GetArticle(Database& d, MessageHandler& m) {
+void getArticle(Database& d, MessageHandler& m) {
     auto ngId = m.recvIntParameter();
     auto aId = m.recvIntParameter();
     
