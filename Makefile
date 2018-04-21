@@ -11,8 +11,8 @@ DEPFLAGS = -MT $@ -MMD -MP -MF $*.d
 # if you use clang++ and wish to use libc++ instead of GNU's libstdc++.
 # -g is for debugging.
 CPPFLAGS =  -std=c++11 -I.
-CXXFLAGS =  -O2 -Wall -Wextra -pedantic-errors -Wold-style-cast 
-CXXFLAGS += -std=c++11 
+CXXFLAGS =  -O2 -Wall -Wextra -pedantic-errors -Wold-style-cast
+CXXFLAGS += -std=c++11
 CXXFLAGS += -g
 CXXFLAGS += $(DEPFLAGS)
 LDFLAGS =   -g -L.
@@ -33,9 +33,19 @@ all: $(TARGETS)
 libclientserver.a: connection.o server.o
 	ar rv libclientserver.a  connection.o server.o
 	ranlib libclientserver.a
-	
+
 client: client_main.o messagehandler.o
 server: server_main.o messagehandler.o memdb.o diskdb.o diskutils.o
+
+bin:
+	mkdir bin
+servercpy:
+	cp ./server ./bin
+clientcpy:
+	cp ./client ./bin
+
+install: bin servercpy clientcpy
+
 
 # Phony targets
 .PHONY: all clean distclean
@@ -51,3 +61,4 @@ distclean: clean
 # Include the *.d files
 SRC = $(wildcard *.cc)
 -include $(SRC:.cc=.d)
+
