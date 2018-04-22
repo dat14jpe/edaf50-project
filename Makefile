@@ -24,7 +24,7 @@ LDFLAGS =   -g -L.
 LDLIBS = -lclientserver
 
 # Targets
-TARGETS = libclientserver.a client server
+TARGETS = libclientserver.a client server_mem server_disk
 all: $(TARGETS)
 
 # Create the library; ranlib is for Darwin (OS X) and maybe other systems.
@@ -35,16 +35,19 @@ libclientserver.a: connection.o server.o
 	ranlib libclientserver.a
 
 client: client_main.o messagehandler.o
-server: server_main.o messagehandler.o memdb.o diskdb.o diskutils.o
+server_mem: server_mem.o messagehandler.o memdb.o diskutils.o
+server_disk: server_disk.o messagehandler.o diskdb.o diskutils.o
 
 bin:
 	mkdir bin
-servercpy:
-	cp ./server ./bin
+servermemcpy:
+	cp ./server_mem ./bin
+serverdiskcpy:
+	cp ./server_disk ./bin
 clientcpy:
 	cp ./client ./bin
 
-install: bin servercpy clientcpy
+install: bin servermemcpy serverdiskcpy clientcpy
 
 
 # Phony targets

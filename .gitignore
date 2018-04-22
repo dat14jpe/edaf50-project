@@ -30,7 +30,8 @@
 *.exe
 *.out
 *.app
-server
+server_mem
+server_disk
 client
 
 # Vim swap files

@@ -43,8 +43,11 @@ int main(int argc, char* argv[]){
 		exit(1);
 	}
     
-    //MemDb db{};
+    #ifdef SERVER_MEM
+    MemDb db{};
+    #else
     DiskDb db{};
+    #endif
 	
 	while (true) {
 		auto conn = server.waitForActivity();
