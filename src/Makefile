@@ -39,13 +39,13 @@ server_mem: server_mem.o messagehandler.o memdb.o diskutils.o
 server_disk: server_disk.o messagehandler.o diskdb.o diskutils.o
 
 bin:
-	mkdir bin
+	mkdir ../bin
 servermemcpy:
-	cp ./server_mem ./bin
+	cp ./server_mem ../bin
 serverdiskcpy:
-	cp ./server_disk ./bin
+	cp ./server_disk ../bin
 clientcpy:
-	cp ./client ./bin
+	cp ./client ../bin
 
 install: bin servermemcpy serverdiskcpy clientcpy
 
