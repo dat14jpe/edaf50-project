@@ -9,7 +9,6 @@
 using std::find_if;
 using std::string;
 
-
 DiskDb::DiskDb(const string& path)
     : path(path)
 {
@@ -116,20 +115,20 @@ void DiskDb::removeArticle(Newsgroup::Id ngId, Article::Id aId) {
 
 
 void DiskDb::writeNewsgroup(Newsgroup::Id id, const Newsgroup& ng) {
-    auto f = FileWriter{newsgroupFileName(id)};
+    FileWriter f{newsgroupFileName(id)};
     f.writeInt(ng.maxId);
     f.writeString(ng.name);
 }
 
 void DiskDb::writeArticle(Newsgroup::Id ngId, Article::Id aId, const Article& a) {
-    auto f = FileWriter{articleFileName(ngId, aId)};
+    FileWriter f{articleFileName(ngId, aId)};
     f.writeString(a.title);
     f.writeString(a.author);
     f.writeString(a.text);
 }
 
 Newsgroup DiskDb::readNewsgroup(Newsgroup::Id id) {
-    auto f = FileReader{newsgroupFileName(id)};
+    FileReader f{newsgroupFileName(id)};
     Newsgroup ng{};
     ng.id = id;
     ng.maxId = f.readInt();
@@ -138,7 +137,7 @@ Newsgroup DiskDb::readNewsgroup(Newsgroup::Id id) {
 }
 
 Article DiskDb::readArticle(Newsgroup::Id ngId, Article::Id aId) {
-    auto f = FileReader{articleFileName(ngId, aId)};
+    FileReader f{articleFileName(ngId, aId)};
     Article a{};
     if (!f) return a;
     a.id = aId;
