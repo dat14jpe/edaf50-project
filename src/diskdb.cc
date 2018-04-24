@@ -4,11 +4,10 @@
 #include <dirent.h>
 #include <fstream>
 #include "diskutils.h"
+#include <stdexcept>
 
 using std::find_if;
 using std::string;
-
-#include <iostream>
 
 
 DiskDb::DiskDb(const string& path)

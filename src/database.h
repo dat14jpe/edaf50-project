@@ -34,9 +34,6 @@ public:
     
     // Removes an article
     virtual void removeArticle(Newsgroup::Id, Article::Id) = 0;
-
-private:
-    unsigned int maxId = 0u;
 };
 
 #endif

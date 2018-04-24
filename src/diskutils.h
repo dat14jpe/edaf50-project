@@ -6,7 +6,8 @@
 #include <fstream>
 
 // Helper class for managing directories:
-struct Directory {
+class Directory {
+public:
     Directory(const std::string& path);
     operator bool() const;
     static bool make(const std::string& path);
@@ -34,7 +35,8 @@ private:
 };
 
 // Helper class to read a file:
-struct FileReader {
+class FileReader {
+public:
     FileReader(const std::string& path);
     operator bool() const;
     unsigned char readByte();
@@ -46,7 +48,8 @@ private:
 };
 
 // Helper class to write a file:
-struct FileWriter {
+class FileWriter {
+public:
     FileWriter(const std::string& path);
     void writeByte(unsigned char c);
     void writeInt(int value);
